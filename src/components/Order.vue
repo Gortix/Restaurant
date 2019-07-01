@@ -27,7 +27,6 @@
   </div>
 
   <button id="order" type="button" class="btn btn-success btn-block" name="button">Złóż zamówienie</button>
-  {{choosed}}
 
 
 </div>
@@ -42,12 +41,13 @@ export default {
   data:function() {
     return {
       choosedCategory:this.firstChoose,
-      choosed:[]
+
     }
   },
   props:{
     firstChoose:String,
    tableNumber: Number,
+         choosed:Array,
     products: Array,
     categories: Array
   },

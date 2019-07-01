@@ -10,8 +10,8 @@
       <product v-for="prd in products" :prod="prd"  />
     </div> -->
 
-    <tablesSection  class="col" />
-    <order class="col-9"  :firstChoose="choosed" :tableNumber="tableNumber" :categories="categories" :products="productsNew" />
+    <tablesSection :availableTables="availableTables"  class="col" />
+    <order class="col-10" :choosed="getTableOrder.order"  :firstChoose="choosedMenu" :tableNumber="tableNumber" :categories="categories" :products="productsNew" />
     <!-- <restaurantTable :tableNumber='1' @chosedTable="tableNumber = $event" />
       <restaurantTable :tableNumber='2' /> -->
 
@@ -30,18 +30,49 @@ export default {
   name: 'app',
   data: function() {
   return{
-    tableNumber:23,
-    choosed:"Obiad",
-    categories: ["Pizza", "Obiad", "Desery"],
-    products: ["Pierwszy", "Drugi", "trzeci", "czwarty"],
-    productsNew:[
-      {name: "Pierwszy", category: "Pizza"},
-      {name: "Drugi", category: "Pizza"},
-      {name: "trzeci", category: "Obiad"},
-      {name: "czwarty", category: "Obiad"},
-
-    ],
+    availableTables: {},
+    tableNumber:1,
+    choosedMenu:"Obiad",
+    categories: '',
+    productsNew:'',
   }
+},
+methods: {
+
+   readTextFile: function(file)
+   {
+   var result;
+     var rawFile = new XMLHttpRequest();
+     rawFile.open("GET", file, false);
+     rawFile.onreadystatechange = function ()
+     {
+         if(rawFile.readyState === 4)
+         {
+             if(rawFile.status === 200 || rawFile.status == 0)
+             {
+                 result = rawFile.responseText;
+
+             }
+         }
+     }
+     rawFile.send(null);
+      return JSON.parse(result);
+    }
+},
+computed:{
+  getTableOrder : function(nm){
+    let pr= this;
+    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }));
+    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }).id);
+    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }).order);
+    return this.availableTables.find((x) => {return x.id==pr.tableNumber })
+  }
+},
+created: function() {
+  let startData= this.readTextFile("./data/data.json");
+  this.categories= startData.categories;
+  this.productsNew=  startData.products;
+  this.availableTables= this.readTextFile("./data/tables.json").tables;
 },
   components: {
     tablesSection,

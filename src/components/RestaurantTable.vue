@@ -1,5 +1,5 @@
 <template>
-  <button class="btn  btn-block my-1" :class="getStatus" >
+  <button class="btn  btn-block my-1" @click="$emit('chosedTable', tableNumber)" :class="getStatus" >
      <span class="badge badge-pill badge-light">{{tableNumber}}</span>
 
 
