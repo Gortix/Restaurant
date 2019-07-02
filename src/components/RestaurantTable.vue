@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
   .btn:not(.btn-outline-success) {
-    border-bottom: 1px solid lightGrey;
+    border: 0.5px solid lightGrey;
   }
 
 
