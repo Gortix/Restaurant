@@ -1,15 +1,15 @@
 {
   "tables": [
-    {"id": 1, "order":[] },
-    {"id": 2, "order":[] },
-    {"id": 3, "order":[] },
-    {"id": 4, "order":[] },
-    {"id": 5, "order":[] },
-    {"id": 6, "order":[] },
-    {"id": 7, "order":[] },
-    {"id": 8, "order":[] },
-    {"id": 9, "order":[] },
-    {"id": 10, "order":[] }
+    {"id": 1, "order":[], "assignedTo": "" },
+    {"id": 2, "order":[], "assignedTo": "" },
+    {"id": 3, "order":[], "assignedTo": "" },
+    {"id": 4, "order":[], "assignedTo": "" },
+    {"id": 5, "order":[], "assignedTo": "" },
+    {"id": 6, "order":[], "assignedTo": "" },
+    {"id": 7, "order":[], "assignedTo": "" },
+    {"id": 8, "order":[], "assignedTo": "" },
+    {"id": 9, "order":[], "assignedTo": "" },
+    {"id": 10, "order":[], "assignedTo": "" }
 
   ]
 }

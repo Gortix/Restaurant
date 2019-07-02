@@ -1,44 +1,21 @@
 <template >
 
-      <div  class="custom-control custom-checkbox col-12 col-sm-6" >
-          <input type="checkbox" class="custom-control-input" :id="prod" :value="prod" v-model="$parent.choosed" >
-          <label class="custom-control-label" :for="prod">{{prod}}</label>
+
+      <div  class="custom-control custom-checkbox col-12 col-sm-6"  >
+          <input type="checkbox" class="custom-control-input m-2" :id="prod" :value="prod" v-model="$parent.order" >
+          <label class="custom-control-label w-100 p-2" :for="prod">{{prod}}</label>
       </div>
 
 </template>
 
-<!-- <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-    <label class="custom-control-label" for="customCheck">Check this custom checkbox</label>
-  </div> -->
-
 <script>
 export default {
+
   name: "product",
   props:{
     prod:String,
-    checked: String,
   },
-  methods: {
 
-  },
-  computed:{
-    changeListener: function(){
-      let vm= this;
-      return Object.assign({},  this.$listeners,{
-        input: function(event){
-          console.log(v.target);
-          vm.$emit("input", vm.value.push(event.target.value))
-        }}
-      )
-    }
-  },
-  data:function() {
-
-    return {
-    order:[]
-  }
-}
 
 }
 </script>
@@ -47,6 +24,13 @@ export default {
   div {
         text-align: left;
       padding-left: 50px;
+      border-bottom : 0.1px solid lightGrey;
+  }
+  .custom-control-label::after {
+    margin: .5rem
+  }
+  .custom-control-label:before {
+    margin: .5rem
   }
 
 </style>

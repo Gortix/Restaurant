@@ -1,8 +1,7 @@
 <template >
   <div >
       <h2> Stoliki </h2>
-      <restaurantTable v-for="nm in availableTables" :key="nm.id" :tableNumber='nm.id' @chosedTable="$parent.tableNumber = $event"  />
-
+      <restaurantTable v-for="nm in availableTables" :key="nm.id" :startData='nm' @chosedTable="$parent.tableNumber = $event"  />
   </div>
 </template>
 
@@ -16,11 +15,10 @@ export default {
   },
   data: function() {
   return{
-    tableNumber:23,
-    name:"Daria"
+    tableNumber:1,
   }},
   props: {
-    availableTables: {type:Array}
+    availableTables: Array
   }
 }
 </script>

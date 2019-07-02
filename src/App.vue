@@ -10,10 +10,8 @@
       <product v-for="prd in products" :prod="prd"  />
     </div> -->
 
-    <tablesSection :availableTables="availableTables"  class="col" />
-    <order class="col-10" :choosed="getTableOrder.order"  :firstChoose="choosedMenu" :tableNumber="tableNumber" :categories="categories" :products="productsNew" />
-    <!-- <restaurantTable :tableNumber='1' @chosedTable="tableNumber = $event" />
-      <restaurantTable :tableNumber='2' /> -->
+    <tablesSection :availableTables="availableTables"  class="col-sm" />
+    <order class="col-sm-10" :choosedTable="getTableOrder" />
 
   </div>
 
@@ -25,53 +23,25 @@ import tablesSection from './components/TablesSection.vue'
 // import product from './components/Product.vue'
 // import category from './components/Category.vue'
 import order from './components/Order.vue'
+import {getData} from './mixins/getData.js'
 
 export default {
+  mixins: [getData],
   name: 'app',
   data: function() {
   return{
     availableTables: {},
     tableNumber:1,
-    choosedMenu:"Obiad",
-    categories: '',
-    productsNew:'',
+    user: "Daria"
   }
-},
-methods: {
-
-   readTextFile: function(file)
-   {
-   var result;
-     var rawFile = new XMLHttpRequest();
-     rawFile.open("GET", file, false);
-     rawFile.onreadystatechange = function ()
-     {
-         if(rawFile.readyState === 4)
-         {
-             if(rawFile.status === 200 || rawFile.status == 0)
-             {
-                 result = rawFile.responseText;
-
-             }
-         }
-     }
-     rawFile.send(null);
-      return JSON.parse(result);
-    }
 },
 computed:{
   getTableOrder : function(nm){
     let pr= this;
-    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }));
-    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }).id);
-    console.log(this.availableTables.find((x) => {return x.id==pr.tableNumber }).order);
     return this.availableTables.find((x) => {return x.id==pr.tableNumber })
   }
 },
 created: function() {
-  let startData= this.readTextFile("./data/data.json");
-  this.categories= startData.categories;
-  this.productsNew=  startData.products;
   this.availableTables= this.readTextFile("./data/tables.json").tables;
 },
   components: {

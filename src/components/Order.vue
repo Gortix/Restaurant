@@ -1,33 +1,18 @@
 <template >
   <div style="padding:0">
-  <h1>Zamówienie dla stolika {{tableNumber}}</h1>
+  <h1>Zamówienie dla stolika {{choosedTable.id}}</h1>
   <div class=" m-0 ">
-
-    <!-- <button class="col-4 col-md-3 col-lg-2 btn btn-light">
-      {{categoryName}}
-    </button> -->
-
-    <!-- <button v-for="cat in categories" :key="cat" @click="choosedCategory = cat"
-     class="col-4 col-md-3 col-lg-2 btn btn-light">
-      {{cat}}
-    </button> -->
     <category v-for="cat in categories" :key="cat" :categoryName="cat"   />
-
   </div>
 
   <div class=" m-0 row ">
-
-    <!-- <div  class="custom-control custom-checkbox col-12 col-sm-6"  v-for="prod in productList">
-        <input type="checkbox" class="custom-control-input" :id="prod.name" :value="prod.name" v-model="choosed">
-        <label class="custom-control-label" :for="prod.name">{{prod.name}}</label>
-    </div> -->
-
-  <product v-for="prd in productList" :prod="prd.name"  />
+    <product v-for="prd in productList" :prod="prd.name"  />
+  </div>
+  <div id="order" class=" w-100">
+    <button v-if="choosedTable.assignedTo != ''" type="button" class="btn btn-warning btn-block" @click="finishOrder" name="button">Wydano</button>
+    <button type="button" class="btn btn-success btn-block" @click.double="sendOrder" name="button">Złóż zamówienie</button>
 
   </div>
-
-  <button id="order" type="button" class="btn btn-success btn-block" name="button">Złóż zamówienie</button>
-
 
 </div>
 </template>
@@ -35,27 +20,52 @@
 <script>
 import product from './Product.vue'
 import category from './Category.vue'
+import {getData} from '../mixins/getData.js'
 
 export default {
+  mixins: [getData],
   name:"order",
   data:function() {
     return {
-      choosedCategory:this.firstChoose,
-
+      choosedCategory: "",
+      products: [],
+      categories:[],
+      order: []
     }
   },
   props:{
-    firstChoose:String,
-   tableNumber: Number,
-         choosed:Array,
-    products: Array,
-    categories: Array
+    choosedTable: Object
+
+  },
+  methods: {
+    sendOrder: function() {
+      this.choosedTable.order= this.order;
+      this.choosedTable.assignedTo= this.$parent.user;
+
+    },
+    finishOrder: function() {
+      this.order= [];
+      this.choosedTable.order=[];
+      this.choosedTable.assignedTo= '';
+    }
   },
   computed:{
     productList: function() {
-      let parent= this;
-      return this.products.filter((x) => { if(x.category == parent.choosedCategory){return x}})
+      let pr= this;
+      return this.products.filter((x) => { if(x.category == pr.choosedCategory){return x}})
     }
+  },
+  watch: {
+   choosedTable: function (newVal, oldVal) {
+     if(newVal.id != oldVal.id)
+      this.order= newVal.order;
+   }
+ },
+  created: function() {
+    let startData= this.readTextFile("./data/data.json");
+    this.categories= startData.categories;
+    this.products=  startData.products;
+    this.choosedCategory= this.categories[0];
   },
   components: {
     category,
