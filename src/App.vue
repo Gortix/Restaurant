@@ -10,7 +10,7 @@
       <product v-for="prd in products" :prod="prd"  />
     </div> -->
 
-    <tablesSection :availableTables="availableTables"  class="col-sm" />
+    <tablesSection :availableTables="availableTables" @chosedTable="tableNumber= $event" class="col-sm" />
     <order class="col-sm-10" :choosedTable="getTableOrder" />
 
   </div>
@@ -20,8 +20,6 @@
 <script>
 
 import tablesSection from './components/TablesSection.vue'
-// import product from './components/Product.vue'
-// import category from './components/Category.vue'
 import order from './components/Order.vue'
 import {getData} from './mixins/getData.js'
 

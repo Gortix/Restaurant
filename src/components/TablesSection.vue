@@ -1,7 +1,7 @@
 <template >
   <div >
       <h2> Stoliki </h2>
-      <restaurantTable v-for="nm in availableTables" :key="nm.id" :startData='nm' @chosedTable="$parent.tableNumber = $event"  />
+      <restaurantTable v-for="nm in availableTables" :key="nm.id" :startData='nm' @chosedTable="$emit('chosedTable', $event)"  />
   </div>
 </template>
 

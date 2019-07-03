@@ -2,7 +2,7 @@
   <div style="padding:0">
   <h1>Zamówienie dla stolika {{choosedTable.id}}</h1>
   <div class=" m-0 ">
-    <category v-for="cat in categories" :key="cat" :categoryName="cat"   />
+    <category v-for="cat in categories" :key="cat" :categoryName="cat"  @catoegory="choosedCategory = $event" />
   </div>
 
   <div class=" m-0 row ">
