@@ -1,7 +1,7 @@
 <template >
 
 
-      <div  class="custom-control custom-checkbox col-12 col-sm-6"  >
+      <div  class="custom-control custom-checkbox col-12 col-sm-6 col-md-4"  >
           <input type="checkbox" class="custom-control-input m-2" :id="prod" :value="prod" v-model="$parent.order" >
           <label class="custom-control-label w-100 p-2" :for="prod">{{prod}}</label>
       </div>

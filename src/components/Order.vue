@@ -10,7 +10,7 @@
   </div>
   <div id="order" class=" w-100">
     <button v-if="choosedTable.assignedTo != ''" type="button" class="btn btn-warning btn-block" @click="finishOrder" name="button">Wydano</button>
-    <button type="button" class="btn btn-success btn-block" @click.double="sendOrder" name="button">Złóż zamówienie</button>
+    <button type="button" class="btn btn-success btn-block" @click="sendOrder" name="button">Złóż zamówienie</button>
 
   </div>
 
@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import product from './Product.vue'
-import category from './Category.vue'
+import product from './Order/Product.vue'
+import category from './Order/Category.vue'
 import {getData} from '../mixins/getData.js'
 
 export default {

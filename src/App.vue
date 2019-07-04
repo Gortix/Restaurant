@@ -1,17 +1,10 @@
 <template>
-  <div id="app" class=" mx-1 row">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <!-- <h1>Zamówienie dla stolika {{tableNumber}}</h1>
-    <div class="row">
-      <category v-for="cat in categories" :categoryName="cat" />
-    </div>
-    <div class="row">
-      <product v-for="prd in products" :prod="prd"  />
-    </div> -->
-
-    <tablesSection :availableTables="availableTables" @chosedTable="tableNumber= $event" class="col-sm" />
-    <order class="col-sm-10" :choosedTable="getTableOrder" />
+  <div id="app" class="row mx-1" mode="out-in">
+    <loginPanel  v-if="user == '' " @user="user = $event" />
+    <template v-else>
+      <tablesSection :availableTables="availableTables" @chosedTable="tableNumber= $event" class="col-md col-lg" />
+      <order class="col-md-9 col-lg-10" :choosedTable="getTableOrder" />
+    </template>
 
   </div>
 
@@ -21,6 +14,7 @@
 
 import tablesSection from './components/TablesSection.vue'
 import order from './components/Order.vue'
+import loginPanel from './components/LoginPanel.vue'
 import {getData} from './mixins/getData.js'
 
 export default {
@@ -30,11 +24,11 @@ export default {
   return{
     availableTables: {},
     tableNumber:1,
-    user: "Daria"
+    user: ""
   }
 },
 computed:{
-  getTableOrder : function(nm){
+  getTableOrder : function(){
     let pr= this;
     return this.availableTables.find((x) => {return x.id==pr.tableNumber })
   }
@@ -44,7 +38,8 @@ created: function() {
 },
   components: {
     tablesSection,
-    order
+    order,
+    loginPanel
   }
 }
 </script>
@@ -63,6 +58,7 @@ html,body{
   color: #2c3e50;
   margin-top: 10px;
 }
+
 
 
 </style>
