@@ -9,7 +9,7 @@
     <product v-for="prd in productList" :prod="prd.name"  />
   </div>
   <div id="order" class=" w-100">
-    <button v-if="choosedTable.assignedTo != ''" type="button" class="btn btn-warning btn-block" @click="finishOrder" name="button">Wydano</button>
+    <b-button  v-if="choosedTable.assignedTo != ''" type="button" class="btn btn-warning btn-block" @click="showMsgBoxOne" >Wydano</b-button>
     <button type="button" class="btn btn-success btn-block" @click="sendOrder" name="button">Złóż zamówienie</button>
 
   </div>
@@ -47,7 +47,13 @@ export default {
       this.order= [];
       this.choosedTable.order=[];
       this.choosedTable.assignedTo= '';
-    }
+    },
+    showMsgBoxOne() {
+       this.$bvModal.msgBoxConfirm('Czy zamówienie na pewno zostało wydane?')
+         .then(value => {
+           if(value) this.finishOrder();
+         })
+     },
   },
   computed:{
     productList: function() {

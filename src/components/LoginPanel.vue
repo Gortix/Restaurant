@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto p-5 shadow border w-25"  @keyup.enter="checkPass">
+  <div class="m-auto p-5 shadow border "  @keyup.enter="checkPass">
       <input placeholder="Login" type="text" class="form-control" v-model="userName">
     <br>
       <input placeholder="Password" type="password" class="form-control" v-model="userPass">

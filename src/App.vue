@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="row mx-1" mode="out-in">
-    <loginPanel  v-if="user == '' " @user="user = $event" />
+    <loginPanel v-if="user == '' " @user="user = $event" />
     <template v-else>
-      <tablesSection :availableTables="availableTables" @chosedTable="tableNumber= $event" class="col-md col-lg" />
-      <order class="col-md-9 col-lg-10" :choosedTable="getTableOrder" />
+      <tablesSection :availableTables="availableTables" @chosedTable="tableNumber= $event" class="col col-md col-lg" />
+      <order class="col-9 col-md-9 col-lg-10" :choosedTable="getTableOrder" />
     </template>
 
   </div>
@@ -32,10 +32,10 @@ computed:{
     let pr= this;
     return this.availableTables.find((x) => {return x.id==pr.tableNumber })
   }
-},
-created: function() {
-  this.availableTables= this.readTextFile("./data/tables.json").tables;
-},
+  },
+  created: function() {
+    this.availableTables= this.readTextFile("./data/tables.json").tables;
+  },
   components: {
     tablesSection,
     order,
