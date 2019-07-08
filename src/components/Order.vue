@@ -45,8 +45,10 @@ export default {
   },
   methods: {
     sendOrder: function() {
-      this.choosedTable.order= this.order;
-      this.choosedTable.assignedTo= this.$parent.user;
+      if(this.order.length >0){
+        this.choosedTable.order= this.order;
+        this.choosedTable.assignedTo= this.$parent.user;
+      }
 
     },
     finishOrder: function() {

@@ -1,8 +1,8 @@
 <template >
   <div >
       <h2> Stoliki </h2>
-      </br>
-          <input type="number"  name="Searcher" class="form-control ml-1" v-model="search" placeholder="Search" />
+      <br>
+          <input type="number" min=0  name="Searcher" class="form-control ml-1" v-model="search" placeholder="Search" />
         <restaurantTable v-for="nm in serchedTables" :key="nm.id" :startData='nm' @chosedTable="$emit('chosedTable', $event)"  />
   </div>
 </template>

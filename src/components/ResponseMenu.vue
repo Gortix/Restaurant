@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     smallScreenMenu: function() {
-      let pr= this;
       if(this.screenIsSmall){
         return {
           smallScreen: true,

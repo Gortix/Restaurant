@@ -50,6 +50,7 @@ export default {
 <style>
 html,body{
     height:100%;
+    scrollbar-width: none;
 }
 
 #app {
@@ -67,6 +68,16 @@ html,body{
     width: 0px;
     background: transparent; /* make scrollbar transparent */
 }
+
+div {
+  scrollbar-width: none;
+}
+
+::-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
 
 
 </style>
