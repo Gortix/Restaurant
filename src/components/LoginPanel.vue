@@ -21,8 +21,8 @@ export default {
   mixins: [getData],
   data : function() {
       return {
-        userName:'',
-        userPass: '',
+        userName:'user',
+        userPass: 'pass',
         show: false
       }
   },
