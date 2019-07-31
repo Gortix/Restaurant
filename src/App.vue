@@ -1,49 +1,45 @@
 <template>
-  <div id="app" class="row" >
-    <loginPanel v-if="user == '' " @user="user = $event" />
-    <template v-else>
-      <responseMenu :availableTables="availableTables"  class="col-1 col-sm-3 col-lg-2" @chosedTable="tableNumber= $event"> </responseMenu>
-      <order  class="col-11 col-sm-9 col-lg-10" :choosedTable="getTableOrder" />
-    </template>
-
+  <div id="app"  >
+    <router-view></router-view>
   </div>
 
 </template>
 
 <script>
-
-import order from './components/Order.vue'
-import loginPanel from './components/LoginPanel.vue'
-import responseMenu from './components/ResponseMenu.vue'
-import {getData} from './mixins/getData.js'
 import { vueWindowSizeMixin } from 'vue-window-size';
+import Router from 'vue-router';
+
+
 
 export default {
-  mixins: [getData, vueWindowSizeMixin],
   name: 'app',
   data: function() {
     return{
-      availableTables: {},
-      tableNumber:1,
       user: "",
-
     }
   },
-  computed:{
-    getTableOrder : function(){
-      let pr= this;
-      return this.availableTables.find((x) => {return x.id==pr.tableNumber })
-    },
-
-  },
   created: function() {
-    this.availableTables= this.readTextFile("./data/tables.json").tables;
+    if(!this.user ){
+      this.$router.push("/");
+    }
   },
-  components: {
-    order,
-    loginPanel,
-    responseMenu
+  watch:{
+    user: function( newVal, oldVal) {
+
+      if(!newVal){
+
+        this.$router.push("/");
+      }else{
+          this.$router.push("/app");
+      }
+    },
+    $route: function( newVal, oldVal) {
+      if(!this.user ){
+        this.$router.push("/");
+      }
+    }
   }
+
 }
 </script>
 

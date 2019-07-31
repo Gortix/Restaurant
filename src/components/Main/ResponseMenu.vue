@@ -1,24 +1,19 @@
 <template >
   <div style="padding:0" :style="[startStyle]"  >
-    <template v-if="screenIsSmall">
-      <button   style="height: 100%; width: 100% " type="button" class=" btn btn-sm btn-light" @click=" clicked = true"  name="button"><b>||</b></button>
-        <div class="shade" v-show="clicked " @click="clicked = false">
-          <h4 style="position: fixed; top: 50%; right: 10%; color: white"> Close </h4>
+
+      <button v-show="screenIsSmall"   type="button" class=" btn btn-sm btn-light" @click=" clicked = true"  name="button"><b>||</b></button>
+        <div class="shade" v-show="clicked && screenIsSmall " @click="clicked = false">
+          <h4 > Close </h4>
         </div>
       <transition name="slide">
-          <tablesSection v-show="clicked"  class="smallScreen" :style="[startStyle]"   :availableTables="availableTables" @chosedTable="$emit('chosedTable', $event) "  />
+          <tablesSection v-show="clicked || !screenIsSmall"  :class="smallScreenMenu " :style="[startStyle]" @chosedTable="$emit('chosedTable', $event) "  />
       </transition>
-    </template>
-
-    <template v-else>
-      <tablesSection :style="[startStyle]"   :availableTables="availableTables" @chosedTable="$emit('chosedTable', $event) "  />
-    </template>
 
   </div>
 </template>
 
 <script>
-import tablesSection from './LeftMenu/TablesSection.vue'
+import tablesSection from './TablesSection.vue'
 import { vueWindowSizeMixin } from 'vue-window-size';
 
 export default {
@@ -27,14 +22,11 @@ export default {
     return {
         clicked: false,
       startStyle: {
-        'height': '100%',
+        "height": '100%',
         'max-height': this.windowHeight-10 +'px',
         'margin': '0',
       }
     }
-  },
-  props: {
-    availableTables: Array,
   },
   computed: {
     smallScreenMenu: function() {
@@ -56,6 +48,15 @@ export default {
 </script>
 
 <style scoped>
+
+h4{
+  position: fixed; top: 50%; right: 10%; color: white
+}
+
+button {
+  height: 100%;
+   width: 100%;
+}
 
 .smallScreen{
 
