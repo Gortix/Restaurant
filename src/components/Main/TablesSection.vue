@@ -1,8 +1,14 @@
 <template >
-  <div  >
+  <div  class="tblSec">
       <h2> Stoliki </h2>
       <br>
-          <input type="number" min=0  name="Searcher" class="form-control ml-1" v-model="search" placeholder="Search" />
+      <div class="input-group ml-1">
+
+        <input type="number" min=0  name="Searcher" class="form-control" v-model="search" placeholder="Search" />
+        <div class="input-group-append">
+          <button class="btn btn-danger" @click="clear" type="button">&times;</button>
+        </div>
+      </div>
         <restaurantTable v-for="nm in serchedTables" :key="nm.id" :startData='nm' @chosedTable="$emit('chosedTable', $event)"  />
   </div>
 </template>
@@ -21,6 +27,11 @@ export default {
       tableNumber:1,
       search: null,
       availableTables: []
+    }
+  },
+  methods:{
+    clear: function() {
+      this.search= null;
     }
   },
   computed: {
@@ -43,7 +54,7 @@ export default {
 </script>
 
 <style  scoped>
-  div {
+  .tblSec {
     border-right: 1px solid lightGrey;
     padding: 0px 10px 0px 0px;
     overflow-y: auto;

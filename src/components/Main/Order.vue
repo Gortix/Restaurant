@@ -1,7 +1,6 @@
 <template >
   <div class="d-flex flex-column"  style="padding:0; background-color: white; overflow-y: auto;"  :style="{'max-height': windowHeight +'px' }">
-    <h1 v-if="windowWidth > 576" >Zamówienie dla stolika {{choosedTable.id}}</h1>
-    <h4 v-else>Zamówienie dla stolika {{choosedTable.id}}</h4>
+    <h1 >Zamówienie dla stolika {{choosedTable.id}}</h1>
     <div class=" m-0 d-flex justify-content-center  flex-wrap align-content-center">
       <category v-for="cat in categories" :key="cat" :categoryName="cat"  @catoegory="choosedCategory = $event" />
     </div>
@@ -26,11 +25,10 @@
 import product from './Order/Product.vue'
 import {Service} from '../../assets/service'
 import category from './Order/Category.vue'
-import { vueWindowSizeMixin } from 'vue-window-size';
+
 
 //vueWindowSizeMixin
 export default {
-  mixins: [vueWindowSizeMixin],
   name:"order",
   data:function() {
     return {
@@ -97,3 +95,11 @@ export default {
 
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 700px) {
+  h1{
+    font-size: 2rem;
+  }
+}
+</style>

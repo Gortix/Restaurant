@@ -25,7 +25,6 @@ export default {
   },
   watch:{
     user: function( newVal, oldVal) {
-
       if(!newVal){
 
         this.$router.push("/");

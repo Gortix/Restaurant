@@ -1,14 +1,14 @@
 <template>
-  <div class="m-auto p-5 shadow border "  @keyup.enter="checkPass">
+  <div class="m-auto p-5   align-content-center shadow border "  @keyup.enter="checkPass">
       <input placeholder="Login" type="text" class="form-control" v-model="userName">
     <br>
       <input placeholder="Password" type="password" class="form-control" v-model="userPass">
       <br>
       <br>
-    <div :class="wrongPass ">
+    <div  :class="wrongPass ">
         <span v-show="show" >Nieprawidłowy login lub hasło!</span>
     </div>
-    <button class="btn btn-info btn-block" type="button" name="button" @click="checkPass"> Login </button>
+    <button class="btn btn-info btn-block " type="button" name="button" @click="checkPass"> Login </button>
   </div>
 
 </template>
@@ -50,5 +50,19 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 500px) and (max-width: 800px){
+  div{
+    position: absolute;
+    left:20%;
+    right:20%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  div{
+    position: absolute;
+    left:30%;
+    right:30%;
+  }
+}
 
 </style>
