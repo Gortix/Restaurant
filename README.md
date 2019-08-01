@@ -1,4 +1,11 @@
-# lokal
+
+# Restaurant Order
+
+It is an application for a restaurant that allows waiters to take orders using a tablet or smartphone
+
+
+
+
 
 ## Project setup
 ```
