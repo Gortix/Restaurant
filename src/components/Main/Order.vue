@@ -1,7 +1,6 @@
 <template >
-  <div class="d-flex flex-column"  style="padding:0; background-color: white; overflow-y: auto;" :style="{'max-height': windowHeight +'px' }">
-    <h1 v-if="windowWidth > 576" >Zamówienie dla stolika {{choosedTable.id}}</h1>
-    <h4 v-else>Zamówienie dla stolika {{choosedTable.id}}</h4>
+  <div class="d-flex flex-column"  style="padding:0; background-color: white; overflow-y: auto;"  :style="{'max-height': windowHeight +'px' }">
+    <h1 >Zamówienie dla stolika {{choosedTable.id}}</h1>
     <div class=" m-0 d-flex justify-content-center  flex-wrap align-content-center">
       <category v-for="cat in categories" :key="cat" :categoryName="cat"  @catoegory="choosedCategory = $event" />
     </div>
@@ -24,30 +23,34 @@
 
 <script>
 import product from './Order/Product.vue'
+import {Service} from '../../assets/service'
 import category from './Order/Category.vue'
-import {getData} from '../mixins/getData.js'
-import { vueWindowSizeMixin } from 'vue-window-size';
+
+
 //vueWindowSizeMixin
 export default {
-  mixins: [getData, vueWindowSizeMixin],
   name:"order",
   data:function() {
     return {
       choosedCategory: "",
       products: [],
       categories:[],
-      order: []
+      order: [],
+      choosedTable: {}
     }
   },
   props:{
-    choosedTable: Object
+    tableid: {type:Number, default:1}
 
   },
   methods: {
     sendOrder: function() {
       if(this.order.length >0){
         this.choosedTable.order= this.order;
-        this.choosedTable.assignedTo= this.$parent.user;
+        // this.choosedTable.assignedTo= this.$parent.user;
+        this.choosedTable.assignedTo= this.$parent.$parent.user;
+
+
       }
 
     },
@@ -67,19 +70,23 @@ export default {
     productList: function() {
       let pr= this;
       return this.products.filter((x) => { if(x.category == pr.choosedCategory){return x}})
-    }
+    },
   },
   watch: {
    choosedTable: function (newVal, oldVal) {
      if(newVal.id != oldVal.id)
       this.order= newVal.order;
+   },
+   tableid: function(to, from) {
+         this.choosedTable =  Service.getTables().find((x) => {return x.id==to  });
    }
  },
   created: function() {
-    let startData= this.readTextFile("./data/data.json");
-    this.categories= startData.categories;
-    this.products=  startData.products;
+    this.categories= Service.getCategories();
+    this.products=  Service.getProducts();
     this.choosedCategory= this.categories[0];
+    this.choosedTable= Service.getTables().find((x) => {return x.id==this.tableid  });
+
   },
   components: {
     category,
@@ -88,3 +95,11 @@ export default {
 
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 700px) {
+  h1{
+    font-size: 2rem;
+  }
+}
+</style>
