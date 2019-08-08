@@ -1,3 +1,3 @@
 export class Categories{
-  static data= ["Pizza", "Obiad", "Deser", "Napój", "Dodatki"]
+  static data= ["Pizze", "Obiady", "Desery", "Napoje", "Dodatki"]
 }

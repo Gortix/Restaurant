@@ -1,12 +1,12 @@
 <template >
-  <div class="d-flex flex-column"  style="padding:0; background-color: white; overflow-y: auto;"  :style="{'max-height': windowHeight +'px' }">
-    <h1 >Zamówienie dla stolika {{choosedTable.id}}</h1>
+  <div class="d-flex flex-column"  style="padding:0; background-color: white; overflow-y: auto;"  >
+    <h1 >Zamówienie dla stolika {{choosedTable.id}} </h1>
     <div class=" m-0 d-flex justify-content-center  flex-wrap align-content-center">
       <category v-for="cat in categories" :key="cat" :categoryName="cat"  @catoegory="choosedCategory = $event" />
     </div>
 
     <div  class=" m-0 row mb-5" >
-      <div class="row">
+      <div class="row w-100">
       <product v-for="prd in productList" :prod="prd.name"  />
       </div>
 
@@ -23,7 +23,7 @@
 
 <script>
 import product from './Order/Product.vue'
-import {Service} from '../../assets/service'
+import {mapState, mapGetters, mapActions} from 'vuex'
 import category from './Order/Category.vue'
 
 
@@ -33,31 +33,19 @@ export default {
   data:function() {
     return {
       choosedCategory: "",
-      products: [],
-      categories:[],
       order: [],
-      choosedTable: {}
     }
-  },
-  props:{
-    tableid: {type:Number, default:1}
-
   },
   methods: {
     sendOrder: function() {
       if(this.order.length >0){
-        this.choosedTable.order= this.order;
-        // this.choosedTable.assignedTo= this.$parent.user;
-        this.choosedTable.assignedTo= this.$parent.$parent.user;
-
-
+        this.updateTableOrder({"order":this.order});
       }
 
     },
     finishOrder: function() {
       this.order= [];
-      this.choosedTable.order=[];
-      this.choosedTable.assignedTo= '';
+      this.clearTableOrder();
     },
     showMsgBox() {
        this.$bvModal.msgBoxConfirm('Czy zamówienie na pewno zostało wydane?')
@@ -65,28 +53,32 @@ export default {
            if(value) this.finishOrder();
          })
      },
+     ...mapActions(['updateTableOrder','clearTableOrder'])
   },
   computed:{
-    productList: function() {
-      let pr= this;
-      return this.products.filter((x) => { if(x.category == pr.choosedCategory){return x}})
-    },
+      productList: function() {
+        let pr= this;
+        return this.products.filter((x) => { if(x.category == pr.choosedCategory){return x}})
+      },
+
+    ...mapState([
+      'categories',
+      'products',
+    ]),
+    ...mapGetters([
+      'getTableById',
+      'choosedTable'
+    ])
   },
   watch: {
-   choosedTable: function (newVal, oldVal) {
-     if(newVal.id != oldVal.id)
-      this.order= newVal.order;
-   },
-   tableid: function(to, from) {
-         this.choosedTable =  Service.getTables().find((x) => {return x.id==to  });
+   choosedTable: function(to) {
+         // this.choosedTable =  this.getTableById(to);
+         this.order=  this.choosedTable.order;
+         this.choosedCategory= this.categories[0];
    }
  },
   created: function() {
-    this.categories= Service.getCategories();
-    this.products=  Service.getProducts();
     this.choosedCategory= this.categories[0];
-    this.choosedTable= Service.getTables().find((x) => {return x.id==this.tableid  });
-
   },
   components: {
     category,

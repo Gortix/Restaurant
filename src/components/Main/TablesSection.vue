@@ -9,14 +9,15 @@
           <button class="btn btn-danger" @click="clear" type="button">&times;</button>
         </div>
       </div>
-        <restaurantTable v-for="nm in serchedTables" :key="nm.id" :startData='nm' @chosedTable="$emit('chosedTable', $event)"  />
+        <restaurantTable v-for="tbl in serchedTables" :key="tbl.id" :startData='tbl'  />
   </div>
 </template>
 
 <script>
 import restaurantTable from './TablesSection/RestaurantTable'
 import { vueWindowSizeMixin } from 'vue-window-size';
-import { Service } from '../../assets/service';
+import {mapState} from 'vuex'
+
 
 export default {
   mixins: [ vueWindowSizeMixin],
@@ -26,7 +27,7 @@ export default {
     return{
       tableNumber:1,
       search: null,
-      availableTables: []
+
     }
   },
   methods:{
@@ -41,12 +42,13 @@ export default {
       }else{
         return this.availableTables;
       }
-    }
+    },
+    ...mapState({
+      availableTables: (state) => state.tablesOrder
+    })
 
   },
-  created: function(){
-    this.availableTables=Service.getTables();
-  },
+
   components :{
     restaurantTable,
   }

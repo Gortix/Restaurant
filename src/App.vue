@@ -6,33 +6,32 @@
 </template>
 
 <script>
-import { vueWindowSizeMixin } from 'vue-window-size';
-import Router from 'vue-router';
 
-
+import {mapState} from 'vuex'
 
 export default {
   name: 'app',
   data: function() {
     return{
-      user: "",
+
     }
   },
+  computed:  mapState(['user']),
+
   created: function() {
     if(!this.user ){
       this.$router.push("/");
     }
   },
   watch:{
-    user: function( newVal, oldVal) {
+    user: function( newVal) {
       if(!newVal){
-
         this.$router.push("/");
       }else{
           this.$router.push("/app");
       }
     },
-    $route: function( newVal, oldVal) {
+    $route: function( newVal) {
       if(!this.user ){
         this.$router.push("/");
       }
