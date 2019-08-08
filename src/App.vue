@@ -11,11 +11,7 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'app',
-  data: function() {
-    return{
 
-    }
-  },
   computed:  mapState(['user']),
 
   created: function() {
