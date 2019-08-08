@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-block m-1" @click="$emit('chosedTable', tableNumber)" :class="getStatus" >
+  <button class="btn btn-block m-1" @click="$store.commit('changeChoosedTable',tableNumber)" :class="getStatus" >
      <span class="badge badge-pill badge-light">{{tableNumber}}</span>
       {{assignedTo}}
   </button>

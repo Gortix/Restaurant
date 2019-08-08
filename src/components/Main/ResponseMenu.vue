@@ -6,7 +6,7 @@
           <h4 > Close </h4>
         </div>
       <transition name="slide">
-          <tablesSection v-show="clicked || !screenIsSmall"  :class="smallScreenMenu " :style="[startStyle]" @chosedTable="$emit('chosedTable', $event) "  />
+          <tablesSection v-show="clicked || !screenIsSmall"  :class="smallScreenMenu " :style="[startStyle]"  />
       </transition>
 
   </div>

@@ -1,7 +1,7 @@
 <template >
   <div class="row">
-    <responseMenu class="col-1 col-sm-3 col-lg-2" @chosedTable="tableNumber= $event"> </responseMenu>
-    <order  class="col-11 col-sm-9 col-lg-10" :tableid="tableNumber" />
+    <responseMenu class="col-1 col-sm-3 col-lg-2"> </responseMenu>
+    <order  class="col-11 col-sm-9 col-lg-10"  />
   </div>
 </template>
 
