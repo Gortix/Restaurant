@@ -3,6 +3,11 @@
 
 It is an application for a restaurant that allows waiters to take orders using a tablet or smartphone
 
+<img src="/images/login.png" width=300px>
+<img src="/images/app.png" width=300px>
+<img src="/images/appM.png" width=300px>
+<img src="/images/appMMenu.png" width=300px>
+
 
 
 
